@@ -1,0 +1,5 @@
+.git
+.idea
+__pycache__/
+dist
+gyomei_trainer.egg-info
