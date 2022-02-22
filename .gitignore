@@ -1,5 +1,6 @@
 .git
 .idea
+.pytest_cache
 __pycache__/
 dist
 gyomei_trainer.egg-info
