@@ -41,6 +41,10 @@ make run
 
 ## Project structure
 
+Before starting training, an individual directory is created in which 
+the current configs, Neural Network weights, logs, and data for 
+running tensorboard are saved.
+
 To fit model you need to create a specific config architecture.
 The root of the project should contain the configs directory. The 
 package copy 3 configs that shall be in the certain paths.
