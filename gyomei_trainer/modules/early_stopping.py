@@ -10,7 +10,9 @@ class EarlyStopping:
             training.
     """
     def __init__(self, patience: int):
-        self.patience = patience
+        self.patience = None
+        if patience is not None:
+            self.patience = None if patience < 1 else patience
         self.counter: int = 0
         self.stop: bool = False
         self.best_loss: Optional[float] = None
@@ -27,9 +29,9 @@ class EarlyStopping:
             return
         if self.best_loss is None:
             self.best_loss = state.loss_value_valid.value()[0]
-        elif self.best_loss < state.loss_value_valid.value()[0]:
+        elif self.best_loss <= state.loss_value_valid.value()[0]:
             self.counter += 1
-            if self.counter > self.patience:
+            if self.counter >= self.patience:
                 self.stop = True
                 state.logger.info("Early stop training. Loss doesn't "
                                   f"change during {self.patience} "

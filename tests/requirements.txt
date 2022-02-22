@@ -1,0 +1,2 @@
+pytest==7.0.0
+segmentation-models-pytorch==0.2.1
