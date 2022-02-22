@@ -8,10 +8,19 @@ from gyomei_trainer.model.model import Model
 from gyomei_trainer.builder.builder import Builder
 
 
+class DummyDataset(Dataset):
+    """Create empty Dataset to test Builder."""
+    def __len__(self):
+        return 0
+
+    def __getitem__(self, item):
+        return [], []
+
+
 def main():
     """Dataloader you may find in gyomei-detection project."""
-    train_dataloader = DataLoader(Dataset)
-    valid_dataloader = DataLoader(Dataset)
+    train_dataloader = DataLoader(DummyDataset())
+    valid_dataloader = DataLoader(DummyDataset())
 
     smp_model = smp.Unet(
         encoder_name='resnet34',
@@ -38,13 +47,14 @@ def main():
     model = Model(model=smp_model, optimizer=optimizer,
                   loss=loss, device='cuda')
 
+    # To create folder with configs and saved weights need to
+    # set project_path to real project path with configs.
     trainer = Builder(model=model, train_loader=train_dataloader,
                       valid_loader=valid_dataloader, num_epoch=20,
                       metrics=metrics, main_metrics=main_metric,
                       scheduler=scheduler, early_stopping_patience=5,
-                      seed=666)
+                      project_path=None, seed=666)
 
-    # To fit you need to use real dataloader.
     trainer.fit()
 
 

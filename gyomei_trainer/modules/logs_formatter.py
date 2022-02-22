@@ -2,10 +2,10 @@ import logging
 from time import time
 from os.path import join
 from datetime import datetime
-from typing import Dict, Any
+from typing import Dict
 from torch.utils.tensorboard import SummaryWriter
 
-from gyomei_trainer.builder.state import State
+from gyomei_trainer.builder.state import State, AverageValueMeter
 
 
 def create_logger(state: State) -> logging.Logger:
@@ -30,12 +30,14 @@ def create_logger(state: State) -> logging.Logger:
 
 
 def make_epoch_log(seconds: float,
-                   metric_data: Dict[str, Any], epoch: int) -> str:
+                   metric_data: Dict[str, AverageValueMeter],
+                   epoch: int) -> str:
     """Create the log message basen on input parameters.
 
     Args:
         seconds (float): Time spent on train and valid epoch.
-        metric_data (Dict[str, Any]): Dict with loss and metrics.
+        metric_data (Dict[str, AverageValueMeter]): Dict with loss
+            and metrics.
         epoch (int): Num of epoch.
 
     Returns:
