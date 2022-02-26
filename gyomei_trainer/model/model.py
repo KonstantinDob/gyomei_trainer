@@ -1,6 +1,6 @@
 import os
 import torch
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 from gyomei_trainer.metrics.loss import Loss
 from gyomei_trainer.builder.state import State
@@ -13,10 +13,10 @@ class Model:
     forward() and _get_name() methods should be present.
 
     Args:
-        model (Any): Pytorch-like model. Should have forward() and
-            _get_name() methods.
-        optimizer (torch.optim.Optimizer): Optimizer.
-        loss (Any): Pytorch-like loss.
+        model (torch.nn.Module): Pytorch-like model. Should have
+            forward() and _get_name() methods.
+        optimizer (Optional[torch.optim.Optimizer]): Optimizer.
+        loss (Optional[torch.nn.Module]): Pytorch-like loss.
         device (str): On that device model should be loaded.
 
     Examples:
@@ -41,12 +41,18 @@ class Model:
         model = Model(model=smp_model, optimizer=optimizer,
                       loss=loss, device='cuda')
     """
-    def __init__(self, model: Any, optimizer: torch.optim.Optimizer,
-                 loss: Any, device: str):
+    def __init__(self, model: torch.nn.Module,
+                 optimizer: Optional[torch.optim.Optimizer],
+                 loss: Optional[torch.nn.Module], device: str):
+        assert isinstance(model, torch.nn.Module), \
+            "Model should be PyTorch-like"
         assert hasattr(model, 'forward'), \
             "Model should have a forward() method!"
         assert hasattr(model, '_get_name'), \
             "Model should have a _get_name() method!"
+        if optimizer is not None:
+            assert isinstance(optimizer, torch.optim.Optimizer), \
+                "Optimizer should be PyTorch-like"
 
         self.model = model
         self.model_name = self.model._get_name()
@@ -132,13 +138,15 @@ class Model:
         Args:
             file_path (str): Path to the weights.
         """
-        checkpoint = torch.load(file_path)
+        checkpoint = torch.load(file_path, map_location=self._device)
         self.model.load_state_dict(checkpoint['model_state_dict'])
-        self.optimizer.load_state_dict(
-            checkpoint['optimizer_state_dict'])
-        self.loss = checkpoint['loss']
+        if self.optimizer is not None:
+            self.optimizer.load_state_dict(
+                checkpoint['optimizer_state_dict'])
+        if self.loss is not None:
+            self.loss = checkpoint['loss']
 
-    def train_step(self, batch) -> Dict[str, Any]:
+    def train_step(self, batch: Any) -> Dict[str, torch.Tensor]:
         """Train model on a step.
 
         Args:
@@ -146,7 +154,7 @@ class Model:
                 will run. Contain train data and target.
 
         Returns:
-            Dict[str, Any]: Result of one training step.
+            Dict[str, torch.Tensor]: Result of one training step.
         """
         data, target = batch
 
@@ -161,7 +169,7 @@ class Model:
                 'target': target,
                 'loss': loss}
 
-    def valid_step(self, batch) -> Dict[str, Any]:
+    def valid_step(self, batch: Any) -> Dict[str, torch.Tensor]:
         """Validate model on a step.
 
         Args:
@@ -169,7 +177,7 @@ class Model:
                 will run. Contain train data and target.
 
         Returns:
-            Dict[str, Any]: Result of one validation step.
+            Dict[str, torch.Tensor]: Result of one validation step.
         """
         data, target = batch
 
@@ -182,11 +190,11 @@ class Model:
                 'target': target,
                 'loss': loss}
 
-    def predict(self, data) -> Any:
-        """MAke prediction.
+    def predict(self, data: Any) -> torch.Tensor:
+        """Make prediction.
 
         Args:
-            data (Any): Data on that prediction will run.
+            data (torch.Tensor): Data on that prediction will run.
 
         Returns:
             Any: Return result of prediction

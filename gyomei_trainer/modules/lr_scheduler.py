@@ -1,16 +1,17 @@
-from typing import Any
+from torch.optim import lr_scheduler
 from gyomei_trainer.builder.state import State
 
 
 class Scheduler:
     """Init scheduler class.
-    May be various types but it's necessary the scheduler has the
-    step() method.
+    May be various types, but it's necessary the scheduler has the
+    step() method and by PyTorch-like.
 
     Args:
-        scheduler (Any): Input scheduler.
+        scheduler (lr_scheduler._LRScheduler): Input
+            scheduler. Should be PyTorch-like.
     """
-    def __init__(self, scheduler: Any):
+    def __init__(self, scheduler: lr_scheduler._LRScheduler):
         if scheduler is not None:
             assert hasattr(scheduler, 'step'), \
                 "Scheduler should have step() method"

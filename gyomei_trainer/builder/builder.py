@@ -61,7 +61,7 @@ class Builder(BaseBuilder):
             1. Builder can be crated as in Builder example.
 
             build = Builder(...)
-            build.validate(verbose=True)
+            build.validate()
 
             2. Most of params may be None.
 
@@ -77,7 +77,7 @@ class Builder(BaseBuilder):
                 project_path=None,
                 seed=777
             )
-            build.validate()
+            build.valid_epoch()
         """
         for batch in self.valid_loader:
             result = self.model.valid_step(batch)

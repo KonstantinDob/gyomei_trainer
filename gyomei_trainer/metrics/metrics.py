@@ -24,8 +24,9 @@ class Metrics:
 
     def _to_device(self):
         """Load model and loss to the device."""
-        for key, value in self.metrics.items():
-            self.metrics[key] = value.to(self.device)
+        if self.metrics is not None:
+            for key, value in self.metrics.items():
+                self.metrics[key] = value.to(self.device)
 
     def calculate_metrics(self, prediction: Any,
                           target: Any) -> Dict[str, Any]:
