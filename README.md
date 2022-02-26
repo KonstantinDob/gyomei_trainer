@@ -15,7 +15,7 @@ Requirements:
 From pip:
 ```
 python -m build
-pip install dist/gyomei_trainer-0.8.0-py3-none-any.whl 
+pip install dist/gyomei_trainer-1.0.2-py3-none-any.whl 
 ```
 
 From source:
