@@ -23,13 +23,12 @@ def set_seed(seed: int):
     torch.backends.cudnn.deterministic = True
 
 
-def save_configs(folder_path: str, config_path: str = './configs'):
+def save_configs(folder_path: str, config_path: str):
     """Save configs to this experiment.
 
     Args:
         folder_path (str): Path to the experiment folder.
         config_path (str): Path to the config folder.
-            Defaults to ./configs.
     """
     os.system(f'cp {config_path}/train.yaml '
               f'{folder_path}/train.yaml')
@@ -72,6 +71,6 @@ def create_experiment_folder(
 
     os.makedirs(full_path)
     os.makedirs(os.path.join(full_path, 'models'))
-    save_configs(folder_path=full_path)
+    save_configs(folder_path=full_path, config_path=config_path)
 
     return full_path

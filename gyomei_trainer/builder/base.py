@@ -1,6 +1,7 @@
 import abc
 from typing import Dict, List, Optional, Any, Callable
 
+from torch.optim import lr_scheduler
 from torch.utils.data import DataLoader
 
 from gyomei_trainer.model.model import Model
@@ -33,8 +34,8 @@ class BaseBuilder:
         main_metrics (Optional[List[str]]): Model save best accuracy
             by this metrics. In single validation run case may be
             set to None.
-        scheduler (Any): Learning rate scheduler. To turf off set it
-            to None.
+        scheduler (lr_scheduler._LRScheduler): Learning rate scheduler.
+            To turf off set it to None.
         early_stopping_patience (Optional[int]): Stop training after
             not decreasing loss during patience epochs. To turf off
             set it to None. Defaults to 5.
@@ -54,7 +55,7 @@ class BaseBuilder:
             num_epoch: Optional[int],
             metrics: Dict[str, Any],
             main_metrics: Optional[List[str]],
-            scheduler: Any,
+            scheduler: lr_scheduler._LRScheduler,
             early_stopping_patience: Optional[int] = 5,
             project_path: Optional[str] = './',
             seed: int = 777
@@ -68,7 +69,7 @@ class BaseBuilder:
 
         self.state = State()
 
-        folder_path = None
+        folder_path: Optional[str] = None
         if project_path is not None:
             folder_path = create_experiment_folder(project_path)
 
@@ -101,11 +102,14 @@ class BaseBuilder:
 
     def _update_state(self):
         """Update State after modules initialization."""
+        metrics = {'': AverageValueMeter()}
+        if self.metrics.metrics is not None:
+            metrics = dict.fromkeys(self.metrics.metrics.keys(),
+                                    AverageValueMeter())
         self.state.update(
             logger=self.logger,
             device=self.model.device,
-            metrics_name=dict.fromkeys(self.metrics.metrics.keys(),
-                                       AverageValueMeter()),
+            metrics_name=metrics,
             loss_name=self.model.loss.loss_name
         )
         self.logger.info("Updated State parameters")

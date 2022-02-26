@@ -9,8 +9,8 @@ class EarlyStopping:
         patience (int): How many epoch loss shouldn't decrease to stop
             training.
     """
-    def __init__(self, patience: int):
-        self.patience = None
+    def __init__(self, patience: Optional[int]):
+        self.patience: Optional[int] = None
         if patience is not None:
             self.patience = None if patience < 1 else patience
         self.counter: int = 0

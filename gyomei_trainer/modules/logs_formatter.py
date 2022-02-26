@@ -20,7 +20,7 @@ def create_logger(state: State) -> logging.Logger:
         logging.Logger: General logger.
     """
     logging.basicConfig(format="%(message)s", level=logging.INFO)
-    logger = logging.getLogger('gyomei_detection')
+    logger = logging.getLogger('gyomei_trainer')
 
     if state.folder_path is not None:
         fh = logging.FileHandler(join(state.folder_path, "std.log"))
