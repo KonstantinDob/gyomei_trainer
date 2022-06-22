@@ -60,9 +60,7 @@ def create_experiment_folder(
     os.makedirs(main_folder, exist_ok=True)
 
     config_path = join(project_path, 'configs')
-    with open(f'{config_path}/model/model.yaml', 'r') as file:
-        config = yaml.safe_load(file)
-    base_name = config['base'] + '_' + config['encoder_name']
+    base_name = 'run'
 
     files_list = os.listdir(main_folder)
     folder_idx = sum([base_name in file for file in files_list])
