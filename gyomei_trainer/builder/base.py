@@ -104,8 +104,10 @@ class BaseBuilder:
         """Update State after modules initialization."""
         metrics = {'': AverageValueMeter()}
         if self.metrics.metrics is not None:
-            metrics = dict.fromkeys(self.metrics.metrics.keys(),
-                                    AverageValueMeter())
+            metrics = dict()
+            for key in self.metrics.metrics.keys():
+                metrics[key] = AverageValueMeter()
+
         self.state.update(
             logger=self.logger,
             device=self.model.device,
