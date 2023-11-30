@@ -1,63 +1,71 @@
+"""Implementation of Builder class."""
+
 from typing import Callable
 
 from gyomei_trainer.builder.base import BaseBuilder
 
 
 class Builder(BaseBuilder):
-    """Create builder.
-    Allows you to train/validate/make prediction. Need to be careful
-    because model should be prepared by gyomei-training model.
+    """Builder class to run training."""
 
-    Examples:
-
-        Create Builder. Detailed Model initialization showed in the
-        model class example.
-
-        model = Model(...)
-
-        metrics = metrics = dict()
-        metrics['fscore'] = smp.utils.metrics.Fscore(threshold=0.5)
-        metrics['iou'] = smp.utils.metrics.IoU(threshold=0.5)
-        metrics['recall'] = smp.utils.metrics.Recall(threshold=0.5)
-
-        main_metrics = ['fscore', 'iou']
-
-        scheduler = Scheduler(...)
-
-        train_loader, valid_loader = create_loaders()
-
-        trainer = Builder(
-            model=model,
-            train_loader=train_dataloader,
-            valid_loader=valid_dataloader,
-            num_epoch=20,
-            metrics=metrics,
-            main_metrics=main_metric,
-            scheduler=scheduler,
-            early_stopping_patience=5,
-            seed=777
-        )
-
-        trainer.fit()
-    """
     def __init__(self, *args, **kwargs):
+        """Builder constructor.
+
+        Allows you to train/validate/make prediction. Need to be careful
+        because model should be prepared by gyomei-training model.
+
+        Args:
+            *args: Positional args for parent class.
+            **kwargs: Keyword args for parent class.
+
+        Examples:
+            Create Builder. Detailed Model initialization showed in the
+            model class example.
+
+            model = Model(...)
+
+            metrics = metrics = dict()
+            metrics['fscore'] = smp.utils.metrics.Fscore(threshold=0.5)
+            metrics['iou'] = smp.utils.metrics.IoU(threshold=0.5)
+            metrics['recall'] = smp.utils.metrics.Recall(threshold=0.5)
+
+            main_metrics = ['fscore', 'iou']
+
+            scheduler = Scheduler(...)
+
+            train_loader, valid_loader = create_loaders()
+
+            trainer = Builder(
+                model=model,
+                train_loader=train_dataloader,
+                valid_loader=valid_dataloader,
+                num_epoch=20,
+                metrics=metrics,
+                main_metrics=main_metric,
+                scheduler=scheduler,
+                early_stopping_patience=5,
+                seed=777
+            )
+
+            trainer.fit()
+        """
         super().__init__(*args, **kwargs)
 
     def train_epoch(self):
         """Train one epoch."""
         for batch in self.train_loader:
             result = self.model.train_step(batch)
-            loss = self.model.loss.make_loss_value(result['loss'])
+            loss = self.model.loss.make_loss_value(result["loss"])
             self.state.loss_value_train.add(value=loss)
             self.state.iteration += 1
 
     def valid_epoch(self):
         """Make validation for one epoch.
+
         Can be used to validation without training. In this case should
         set project_path to None.
 
         Examples:
-
             1. Builder can be crated as in Builder example.
 
             build = Builder(...)
@@ -81,9 +89,10 @@ class Builder(BaseBuilder):
         """
         for batch in self.valid_loader:
             result = self.model.valid_step(batch)
-            loss = self.model.loss.make_loss_value(result['loss'])
+            loss = self.model.loss.make_loss_value(result["loss"])
             metrics = self.metrics.calculate_metrics(
-                result['prediction'], result['target'])
+                result["prediction"], result["target"]
+            )
             self.state.loss_value_valid.add(value=loss)
             for key, value in metrics.items():
                 self.state.metrics_name[key].add(value=value)

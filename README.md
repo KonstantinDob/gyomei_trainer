@@ -15,7 +15,7 @@ Requirements:
 From pip:
 ```
 python -m build
-pip install dist/gyomei_trainer-1.0.2-py3-none-any.whl 
+pip install dist/gyomei_trainer-1.0.2-py3-none-any.whl
 ```
 
 From source:
@@ -23,7 +23,7 @@ From source:
 pip install -U git+https://github.com/KonstantinDob/gyomei_trainer.git
 ```
 
-## Docker 
+## Docker
 
 To use docker with GPU you need *nvidia-docker == 2.9.0*.
 
@@ -41,28 +41,28 @@ make run
 
 ## Project structure
 
-Before starting training, an individual directory is created in which 
-the current configs, Neural Network weights, logs, and data for 
+Before starting training, an individual directory is created in which
+the current configs, Neural Network weights, logs, and data for
 running tensorboard are saved.
 
 To fit model you need to create a specific config architecture.
-The root of the project should contain the configs directory. The 
+The root of the project should contain the configs directory. The
 package copy 3 configs that shall be in the certain paths.
 
     .
     ├── ...
-    ├── configs 
-    │   ├── data                
-    │   │   └── dataset.yaml   
-    │   ├── model               
+    ├── configs
+    │   ├── data
+    │   │   └── dataset.yaml
+    │   ├── model
     │   │   └── model.yaml
-    │   └── train.yaml          
+    │   └── train.yaml
     └── ...
 
 * `dataset.yaml` - Contain path to dataset and augmentation params.
-* `model.yaml` - Contain info about backbone, base model, number of 
+* `model.yaml` - Contain info about backbone, base model, number of
 channels etc.
-* `train.yaml` - Contain Loss/Scheduler/Optimizer info, number of epoch 
+* `train.yaml` - Contain Loss/Scheduler/Optimizer info, number of epoch
 and batch size.
 
 ## Example
@@ -118,7 +118,7 @@ def main():
 
     model = Model(model=smp_model, optimizer=optimizer,
                   loss=loss, device='cuda')
-    
+
     # To create folder with configs and saved weights need to
     # set project_path to real project path with configs.
     trainer = Builder(model=model, train_loader=train_dataloader,
@@ -133,4 +133,3 @@ def main():
 if __name__ == "__main__":
     main()
 ```
-

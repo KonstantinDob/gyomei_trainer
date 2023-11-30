@@ -1,23 +1,26 @@
+"""Implementation of Gyomei metrics."""
+
 from typing import Dict, Any
 
 
 class Metrics:
-    """Prepare metrics to Build format.
+    """Prepare metrics to Build format."""
 
-    Args:
-        metrics (Dict[str, Any]): Dict with metrics. Keys are metric
-            names and values are metric classes.
-        device (str): On that device metrics should be loaded.
-
-    Examples:
-
-        Create with segmentation models pytorch project.
-
-        metrics = dict()
-        metrics['fscore'] = smp.utils.metrics.Fscore(threshold=0.5)
-        metrics['iou'] = smp.utils.metrics.IoU(threshold=0.5)
-    """
     def __init__(self, metrics: Dict[str, Any], device: str):
+        """Metrics constructor.
+
+        Args:
+            metrics (Dict[str, Any]): Dict with metrics. Keys are metric
+                names and values are metric classes.
+            device (str): On that device metrics should be loaded.
+
+        Examples:
+            Create with segmentation models pytorch project.
+
+            metrics = dict()
+            metrics['fscore'] = smp.utils.metrics.Fscore(threshold=0.5)
+            metrics['iou'] = smp.utils.metrics.IoU(threshold=0.5)
+        """
         self.metrics = metrics
         self.device = device
         self._to_device()
@@ -28,8 +31,7 @@ class Metrics:
             for key, value in self.metrics.items():
                 self.metrics[key] = value.to(self.device)
 
-    def calculate_metrics(self, prediction: Any,
-                          target: Any) -> Dict[str, Any]:
+    def calculate_metrics(self, prediction: Any, target: Any) -> Dict[str, Any]:
         """Calculate metrics based on prediction and target.
 
         Args:

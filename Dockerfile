@@ -1,5 +1,5 @@
 # Dockerfile based on: https://github.com/osai-ai/dokai
-FROM nvidia/cuda:11.4.2-cudnn8-devel-ubuntu20.04
+FROM nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04
 
 ENV LANG C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
