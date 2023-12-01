@@ -72,7 +72,7 @@ class LogsFormatter:
         if state.folder_path is not None:
             self.writer = SummaryWriter(state.folder_path)
 
-    def epoch_complete(self, state: State):
+    def epoch_complete(self, state: State) -> None:
         """Create and save logs after training and validation epoch.
 
         Args:

@@ -25,7 +25,7 @@ class Scheduler:
                 raise AttributeError("Scheduler should have step() method")
         self.scheduler = scheduler
 
-    def epoch_complete(self, state: State):
+    def epoch_complete(self, state: State) -> None:
         """Make scheduler step after end of training epoch.
 
         Args:

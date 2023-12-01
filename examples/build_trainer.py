@@ -1,5 +1,7 @@
 """Example of building the trainer."""
 
+from typing import Any
+
 import torch
 from torch.utils.data import DataLoader, Dataset
 
@@ -21,11 +23,11 @@ class DummyDataset(Dataset):
         """
         return 0
 
-    def __getitem__(self, item) -> list:
+    def __getitem__(self, item: Any) -> list:
         """Return empty lists for dummy dataset.
 
         Args:
-            item: Any type of data.
+            item (Any): Any type of data.
 
         Returns:
             list: Empty lists.

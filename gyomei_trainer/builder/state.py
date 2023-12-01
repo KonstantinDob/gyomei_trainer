@@ -3,7 +3,7 @@
 import logging
 import numpy as np
 from time import time
-from typing import Dict, List, Any, Optional
+from typing import Dict, List, Any, Union, Optional
 
 
 class State:
@@ -61,11 +61,11 @@ class Meter(object):
     This class is abstract, but provides a standard interface for all meters to follow.
     """
 
-    def reset(self):
+    def reset(self) -> None:
         """Resets the meter to default settings."""
         pass
 
-    def add(self, value: Any):
+    def add(self, value: Any) -> None:
         """Log a new value to the meter.
 
         Args:
@@ -73,7 +73,7 @@ class Meter(object):
         """
         pass
 
-    def value(self):
+    def value(self) -> None:
         """Get the value of the meter in the current state."""
         pass
 
@@ -92,19 +92,19 @@ class AverageValueMeter(Meter):
         self.sum: float = 0.0
         self.var: float = 0.0
         self.val: float = 0.0
-        self.mean: Optional[float, np.nan] = np.nan
+        self.mean: Optional[Union[float, np.nan]] = np.nan
         self.mean_old: float = 0.0
         self.m_s: float = 0.0
-        self.std: Optional[float, np.nan] = np.nan
+        self.std: Optional[Union[float, np.nan]] = np.nan
 
         self.reset()
 
-    def add(self, value, n=1):
+    def add(self, value: np.ndarray, n: int = 1) -> None:
         """Add value.
 
         Args:
-            value: Calculate mean and std for the value.
-            n: Parameter to calculate mean and std. Defaults to 1.
+            value (np.ndarray): Calculate mean and std for the value.
+            n (int): Parameter to calculate mean and std. Defaults to 1.
         """
         self.val = value
         self.sum += value
@@ -124,7 +124,7 @@ class AverageValueMeter(Meter):
             self.mean_old = self.mean
             self.std = np.sqrt(self.m_s / (self.n - 1.0))
 
-    def value(self):
+    def value(self) -> List[float]:
         """Return mean and std of parameter.
 
         Returns:
@@ -132,7 +132,7 @@ class AverageValueMeter(Meter):
         """
         return self.mean, self.std
 
-    def reset(self):
+    def reset(self) -> None:
         """Reset all data."""
         self.n = 0
         self.sum = 0.0

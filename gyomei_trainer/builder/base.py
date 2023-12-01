@@ -90,17 +90,17 @@ class BaseBuilder:
         self.logger.info("Builder has created")
 
     @abc.abstractmethod
-    def train_epoch(self):
+    def train_epoch(self) -> None:
         """Train an expoch."""
         pass
 
     @abc.abstractmethod
-    def valid_epoch(self):
+    def valid_epoch(self) -> None:
         """Validate an epoch."""
         pass
 
     @abc.abstractmethod
-    def predict(self, postprocessing: Callable):
+    def predict(self, postprocessing: Callable) -> None:
         """Precidt on the data.
 
         Args:
@@ -108,7 +108,7 @@ class BaseBuilder:
         """
         pass
 
-    def _update_state(self):
+    def _update_state(self) -> None:
         """Update State after modules initialization."""
         metrics = {"": AverageValueMeter()}
         if self.metrics.metrics is not None:
@@ -124,7 +124,7 @@ class BaseBuilder:
         )
         self.logger.info("Updated State parameters")
 
-    def _epoch_complete(self):
+    def _epoch_complete(self) -> None:
         """Run all methods that called after train and valid epoch."""
         for module in [
             self.model,
@@ -135,7 +135,7 @@ class BaseBuilder:
             getattr(module, "epoch_complete")(state=self.state)
         self.state.epoch_complete()
 
-    def fit(self):
+    def fit(self) -> None:
         """Run model training."""
         while self.state.epoch < self.num_epoch and not self.early_stopping.stop:
             self.logger.info(f"Start epoch: {self.state.epoch}")

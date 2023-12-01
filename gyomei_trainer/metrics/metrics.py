@@ -10,7 +10,7 @@ class Metrics:
         """Metrics constructor.
 
         Args:
-            metrics (Dict[str, Any]): Dict with metrics. Keys are metric
+            metrics (dict of str: any): Dict with metrics. Keys are metric
                 names and values are metric classes.
             device (str): On that device metrics should be loaded.
 
@@ -25,7 +25,7 @@ class Metrics:
         self.device = device
         self._to_device()
 
-    def _to_device(self):
+    def _to_device(self) -> None:
         """Load model and loss to the device."""
         if self.metrics is not None:
             for key, value in self.metrics.items():
@@ -39,7 +39,7 @@ class Metrics:
             target (Any): Target to that the model trains.
 
         Returns:
-            Dict[str, Any]: Dict with metrics values. Keys are
+            dict of str: any: Dict with metrics values. Keys are
                 metrics names and values are metric values.
         """
         metric_values = dict.fromkeys(self.metrics.keys(), 0)

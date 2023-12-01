@@ -51,7 +51,7 @@ class Builder(BaseBuilder):
         """
         super().__init__(*args, **kwargs)
 
-    def train_epoch(self):
+    def train_epoch(self) -> None:
         """Train one epoch."""
         for batch in self.train_loader:
             result = self.model.train_step(batch)
@@ -59,7 +59,7 @@ class Builder(BaseBuilder):
             self.state.loss_value_train.add(value=loss)
             self.state.iteration += 1
 
-    def valid_epoch(self):
+    def valid_epoch(self) -> None:
         """Make validation for one epoch.
 
         Can be used to validation without training. In this case should
@@ -99,13 +99,12 @@ class Builder(BaseBuilder):
         if self.state.folder_path is None:
             self.logs_formatter.epoch_complete(self.state)
 
-    def predict(self, postprocessing: Callable):
+    def predict(self, postprocessing: Callable) -> None:
         """Make predictions.
 
         Args:
             postprocessing (Callable): Function allows you to operate
-                with processed data. For example, it may save images or
-                text.
+                with processed data. For example, it may save images or text.
         """
         for batch in self.valid_loader:
             result = self.model.predict(batch)

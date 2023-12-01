@@ -24,7 +24,7 @@ def set_seed(seed: int):
     torch.backends.cudnn.deterministic = True
 
 
-def save_configs(folder_path: str, config_path: str):
+def save_configs(folder_path: str, config_path: str) -> None:
     """Save configs to this experiment.
 
     Args:

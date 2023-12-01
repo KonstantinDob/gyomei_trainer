@@ -11,7 +11,7 @@ class EarlyStopping:
         """Early stopping constructor.
 
         Args:
-            patience (int): How many epoch loss shouldn't decrease to stop
+            patience (int, optional): How many epoch loss shouldn't decrease to stop
                 training.
         """
         self.patience: Optional[int] = None
@@ -21,7 +21,7 @@ class EarlyStopping:
         self.stop: bool = False
         self.best_loss: Optional[float] = None
 
-    def epoch_complete(self, state: State):
+    def epoch_complete(self, state: State) -> None:
         """Check early stopping.
 
         If loss doesn't decrease during patient epoch then
