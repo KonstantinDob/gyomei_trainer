@@ -6,11 +6,10 @@ from gyomei_trainer.metrics.loss import Loss
 
 
 class TestLoss:
-
     @pytest.mark.parametrize(
-        'raw_loss, created', [(torch.nn.MSELoss(), True),
-                              (torch.nn.BCELoss(), True),
-                              ([], False)])
+        "raw_loss, created",
+        [(torch.nn.MSELoss(), True), (torch.nn.BCELoss(), True), ([], False)],
+    )
     def test_loss_init(self, raw_loss: Any, created: bool):
         """Test lsos initialization.
 

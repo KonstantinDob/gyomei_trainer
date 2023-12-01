@@ -10,7 +10,7 @@ class NeuralNetwork(nn.Module):
         super(NeuralNetwork, self).__init__()
         self.flatten = nn.Flatten()
         self.linear_relu_stack = nn.Sequential(
-            nn.Linear(28*28, 512),
+            nn.Linear(28 * 28, 512),
             nn.ReLU(),
             nn.Linear(512, 512),
             nn.ReLU(),
@@ -25,8 +25,8 @@ class NeuralNetwork(nn.Module):
 
 class TestScheduler:
     @pytest.mark.parametrize(
-        'scheduler_name, created', [('linear', True), ('None', False),
-                                    ('lambda', True), ('Lol', False)]
+        "scheduler_name, created",
+        [("linear", True), ("None", False), ("lambda", True), ("Lol", False)],
     )
     def test_scheduler(self, scheduler_name: str, created: bool):
         """Test learning rate scheduler.
@@ -46,11 +46,12 @@ class TestScheduler:
         optimizer = torch.optim.Adam(params=model.parameters())
 
         scheduler = None
-        if scheduler_name == 'linear':
+        if scheduler_name == "linear":
             scheduler = torch.optim.lr_scheduler.LinearLR(optimizer)
-        elif scheduler_name == 'lambda':
+        elif scheduler_name == "lambda":
             scheduler = torch.optim.lr_scheduler.LambdaLR(
-                optimizer, lr_lambda=[lambda epoch: epoch // 30])
+                optimizer, lr_lambda=[lambda epoch: epoch // 30]
+            )
         try:
             lr_scheduler = Scheduler(scheduler)
             optimizer.step()

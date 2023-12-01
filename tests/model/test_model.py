@@ -12,7 +12,7 @@ class NeuralNetwork(nn.Module):
         super(NeuralNetwork, self).__init__()
         self.flatten = nn.Flatten()
         self.linear_relu_stack = nn.Sequential(
-            nn.Linear(28*28, 512),
+            nn.Linear(28 * 28, 512),
             nn.ReLU(),
             nn.Linear(512, 512),
             nn.ReLU(),
@@ -48,10 +48,9 @@ class FakeNN2:
 
 
 class TestModel:
-
-    @pytest.mark.parametrize('model, created', [(NeuralNetwork, True),
-                                                (FakeNN1, False),
-                                                (FakeNN2, False)])
+    @pytest.mark.parametrize(
+        "model, created", [(NeuralNetwork, True), (FakeNN1, False), (FakeNN2, False)]
+    )
     def test_initialisation(self, model: Any, created: bool):
         """Test model with different model types.
 
@@ -62,7 +61,7 @@ class TestModel:
         raw_model = model()
         optimizer = torch.optim.Adam(params=raw_model.parameters())
         loss = torch.nn.MSELoss()
-        device = 'cpu'
+        device = "cpu"
         state = State()
 
         try:

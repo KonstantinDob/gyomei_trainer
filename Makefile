@@ -12,7 +12,10 @@ stop:
 
 .PHONY: run
 run:
-	docker run --rm -it \
-		--gpus=$(GPUS) \
+	docker run --rm -dit \
 		--name=$(NAME) \
 		$(NAME)
+
+.PHONY: style
+style:
+	git config --global --add safe.directory /workdir && pre-commit run --verbose --files gyomei_trainer/*
