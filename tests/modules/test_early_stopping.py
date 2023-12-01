@@ -7,8 +7,7 @@ from gyomei_trainer.modules.early_stopping import EarlyStopping
 
 
 class TestStopping:
-
-    @pytest.mark.parametrize('patience', [1, 5, -2, 0, None])
+    @pytest.mark.parametrize("patience", [1, 5, -2, 0, None])
     def test_stopping_process(self, patience: Optional[int]):
         """Test early stopping model with different patient values.
 
@@ -18,7 +17,7 @@ class TestStopping:
         early_stopping = EarlyStopping(patience)
 
         logging.basicConfig(format="%(message)s", level=logging.INFO)
-        logger = logging.getLogger('gyomei_detection')
+        logger = logging.getLogger("gyomei_detection")
         state = State()
         state.logger = logger
         state.loss_value_valid.add(0)

@@ -12,6 +12,7 @@ from gyomei_trainer.builder.builder import Builder
 
 class DummyDataset(Dataset):
     """Create empty Dataset to test Builder."""
+
     def __len__(self):
         return 0
 
@@ -31,41 +32,43 @@ def create_builder() -> Builder:
     valid_dataloader = DataLoader(DummyDataset())
 
     smp_model = smp.Unet(
-        encoder_name='resnet34',
-        encoder_weights='imagenet',
-        in_channels=3,
-        classes=2
+        encoder_name="resnet34", encoder_weights="imagenet", in_channels=3, classes=2
     )
     optimizer = torch.optim.Adam(params=smp_model.parameters())
     scheduler = torch.optim.lr_scheduler.LinearLR(optimizer)
 
     metrics = dict()
-    metrics['fscore'] = smp.utils.metrics.Fscore(threshold=0.5)
-    metrics['iou'] = smp.utils.metrics.IoU(threshold=0.5)
-    main_metric = ['iou']
+    metrics["fscore"] = smp.utils.metrics.Fscore(threshold=0.5)
+    metrics["iou"] = smp.utils.metrics.IoU(threshold=0.5)
+    main_metric = ["iou"]
 
-    loss = losses.JaccardLoss(mode='multilabel', smooth=0)
+    loss = losses.JaccardLoss(mode="multilabel", smooth=0)
 
-    model = Model(model=smp_model, optimizer=optimizer,
-                  loss=loss, device='cpu')
+    model = Model(model=smp_model, optimizer=optimizer, loss=loss, device="cpu")
 
-    trainer = Builder(model=model, train_loader=train_dataloader,
-                      valid_loader=valid_dataloader, num_epoch=20,
-                      metrics=metrics, main_metrics=main_metric,
-                      scheduler=scheduler, early_stopping_patience=5,
-                      project_path=None, seed=666)
+    trainer = Builder(
+        model=model,
+        train_loader=train_dataloader,
+        valid_loader=valid_dataloader,
+        num_epoch=20,
+        metrics=metrics,
+        main_metrics=main_metric,
+        scheduler=scheduler,
+        early_stopping_patience=5,
+        project_path=None,
+        seed=666,
+    )
     return trainer
 
 
 class TestBuilder:
-
     def test_state_update(self, create_builder: Callable):
         """Test update of state."""
         trainer = create_builder
 
-        assert trainer.state.device == 'cpu'
-        assert trainer.state.loss_name == 'JaccardLoss'
-        assert trainer.state.main_metrics == ['iou']
+        assert trainer.state.device == "cpu"
+        assert trainer.state.loss_name == "JaccardLoss"
+        assert trainer.state.main_metrics == ["iou"]
         assert trainer.state.epoch == 0
         assert trainer.state.iteration == 0
 
@@ -73,10 +76,9 @@ class TestBuilder:
         assert trainer.state.epoch == 10
         assert trainer.state.iteration == 100
 
-        trainer.state.update(loss_name='DiceLoss',
-                             main_metrics=['recall', 'f1'])
-        assert trainer.state.loss_name == 'DiceLoss'
-        assert trainer.state.main_metrics == ['recall', 'f1']
+        trainer.state.update(loss_name="DiceLoss", main_metrics=["recall", "f1"])
+        assert trainer.state.loss_name == "DiceLoss"
+        assert trainer.state.main_metrics == ["recall", "f1"]
 
     def test_fit(self, create_builder: Callable):
         """Test fit with empty dataset."""
