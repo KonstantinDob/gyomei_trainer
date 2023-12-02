@@ -8,7 +8,8 @@ from torch.utils.data import DataLoader
 
 from gyomei_trainer.model import Model
 from gyomei_trainer.metrics import Metrics
-from gyomei_trainer.modules import EarlyStopping, LogsFormatter, Scheduler, create_logger
+from gyomei_trainer.modules import create_logger
+from gyomei_trainer.modules import EarlyStopping, LogsFormatter, Scheduler
 from gyomei_trainer.state import State, AverageValueMeter
 from gyomei_trainer.utils import set_seed, create_experiment_folder
 
