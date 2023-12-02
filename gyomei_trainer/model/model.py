@@ -4,8 +4,7 @@ import os
 import torch
 from typing import Dict, Any, Optional
 
-from gyomei_trainer.metrics.loss import Loss
-from gyomei_trainer.builder.state import State
+from gyomei_trainer.metrics import Loss
 
 
 class Model:
@@ -99,11 +98,11 @@ class Model:
         self._device = device_name
         self._to_device()
 
-    def epoch_complete(self, state: State):
+    def epoch_complete(self, state: Any):
         """Save model after training and validation epoch.
 
         Args:
-            state (State): State with main parameters.
+            state (Any): State with main parameters.
         """
         if state.folder_path is None:
             return
@@ -129,11 +128,11 @@ class Model:
                 f"Best model saved with " f"following metric: {form_data}"
             )
 
-    def _save_model(self, state: State, mode: str):
+    def _save_model(self, state: Any, mode: str):
         """Save pytorch model.
 
         Args:
-            state (State): State with main parameters.
+            state (Any): State with main parameters.
             mode (str): Add mode label to saved model name.
         """
         model_name = f"{mode}_{self.model_name}.pth"

@@ -1,7 +1,7 @@
 """Gyomei scheduler implementation."""
 
+from typing import Any
 from torch.optim import lr_scheduler
-from gyomei_trainer.builder.state import State
 
 
 class Scheduler:
@@ -25,11 +25,11 @@ class Scheduler:
                 raise AttributeError("Scheduler should have step() method")
         self.scheduler = scheduler
 
-    def epoch_complete(self, state: State) -> None:
+    def epoch_complete(self, state: Any) -> None:
         """Make scheduler step after end of training epoch.
 
         Args:
-              state (State): State with main parameters.
+              state (Any): State with main parameters.
         """
         if self.scheduler is not None:
             state.logger.info("Make scheduler step")

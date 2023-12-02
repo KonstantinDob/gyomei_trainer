@@ -3,8 +3,8 @@ import torch
 import torch.nn as nn
 from typing import Any
 
-from gyomei_trainer.builder.state import State
-from gyomei_trainer.model.model import Model
+from gyomei_trainer.state import State
+from gyomei_trainer.model import Model
 
 
 class NeuralNetwork(nn.Module):
@@ -68,5 +68,5 @@ class TestModel:
             model = Model(raw_model, optimizer, loss, device)
             model.epoch_complete(state)
             assert created
-        except AssertionError:
+        except TypeError:
             assert not created
