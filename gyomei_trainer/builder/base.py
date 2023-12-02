@@ -6,13 +6,11 @@ from typing import Dict, List, Optional, Any, Callable
 from torch.optim import lr_scheduler
 from torch.utils.data import DataLoader
 
-from gyomei_trainer.model.model import Model
-from gyomei_trainer.metrics.metrics import Metrics
-from gyomei_trainer.modules.lr_scheduler import Scheduler
-from gyomei_trainer.modules.early_stopping import EarlyStopping
-from gyomei_trainer.builder.state import State, AverageValueMeter
+from gyomei_trainer.model import Model
+from gyomei_trainer.metrics import Metrics
+from gyomei_trainer.modules import EarlyStopping, LogsFormatter, Scheduler, create_logger
+from gyomei_trainer.state import State, AverageValueMeter
 from gyomei_trainer.utils import set_seed, create_experiment_folder
-from gyomei_trainer.modules.logs_formatter import LogsFormatter, create_logger
 
 
 class BaseBuilder:

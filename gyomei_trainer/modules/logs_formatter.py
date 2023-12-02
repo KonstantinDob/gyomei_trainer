@@ -4,20 +4,20 @@ import logging
 from time import time
 from os.path import join
 from datetime import datetime
-from typing import Dict
+from typing import Any, Dict
 from torch.utils.tensorboard import SummaryWriter
 
-from gyomei_trainer.builder.state import State, AverageValueMeter
+from gyomei_trainer.state import AverageValueMeter
 
 
-def create_logger(state: State) -> logging.Logger:
+def create_logger(state: Any) -> logging.Logger:
     """Create logger.
 
     Save logs to file in training mode. To turn off training need to set
     up folder_path parameter to None.
 
     Args:
-        state (State): State with main parameters.
+        state (Any): State with main parameters.
 
     Returns:
         logging.Logger: General logger.
@@ -62,21 +62,21 @@ def make_epoch_log(
 class LogsFormatter:
     """Logs formatter also create tensorboard logs."""
 
-    def __init__(self, state: State):
+    def __init__(self, state: Any):
         """Logs formatter constructor.
 
         Args:
-            state (State): State with main parameters.
+            state (Any): State with main parameters.
         """
         self.writer = None
         if state.folder_path is not None:
             self.writer = SummaryWriter(state.folder_path)
 
-    def epoch_complete(self, state: State) -> None:
+    def epoch_complete(self, state: Any) -> None:
         """Create and save logs after training and validation epoch.
 
         Args:
-            state (State): State with main parameters.
+            state (Any): State with main parameters.
         """
         seconds = time() - state.timer
         data = {state.loss_name: state.loss_value_valid}

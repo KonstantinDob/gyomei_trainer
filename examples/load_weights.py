@@ -5,7 +5,7 @@ import torch
 import segmentation_models_pytorch as smp
 from segmentation_models_pytorch import losses
 
-from gyomei_trainer.model.model import Model
+from gyomei_trainer.model import Model
 
 
 def main():

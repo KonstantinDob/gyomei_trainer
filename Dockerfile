@@ -25,7 +25,8 @@ RUN apt-get update &&\
 RUN pip3 install --upgrade --no-cache-dir \
     pip==21.3.1 \
     setuptools==59.5.0 \
-    packaging==21.2
+    packaging==21.2 \
+    protobuf==3.20.*
 
 # Install python packages
 COPY . /workdir

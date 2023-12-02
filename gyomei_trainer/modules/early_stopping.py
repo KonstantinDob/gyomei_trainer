@@ -1,7 +1,6 @@
 """Gyomei early stopping implementation."""
 
-from typing import Optional
-from gyomei_trainer.builder.state import State
+from typing import Any, Optional
 
 
 class EarlyStopping:
@@ -21,14 +20,14 @@ class EarlyStopping:
         self.stop: bool = False
         self.best_loss: Optional[float] = None
 
-    def epoch_complete(self, state: State) -> None:
+    def epoch_complete(self, state: Any) -> None:
         """Check early stopping.
 
         If loss doesn't decrease during patient epoch then
         stop set to Ture that stop training.
 
         Args:
-            state (State): State with main parameters.
+            state (Any): State with main parameters.
         """
         if self.patience is None:
             return
