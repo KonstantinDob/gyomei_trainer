@@ -31,3 +31,4 @@ RUN pip3 install --upgrade --no-cache-dir \
 # Install python packages
 COPY . /workdir
 RUN pip3 install -r ./requirements.txt
+RUN pip3 install -r ./tests/requirements.txt
