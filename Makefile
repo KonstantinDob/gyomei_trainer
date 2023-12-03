@@ -38,4 +38,4 @@ test-cov:
 			--junitxml=pytest.xml \
 			--cov-report term-missing:skip-covered \
 			--cov-report xml:coverage.xml \
-			tests | tee cov.txt
+			tests

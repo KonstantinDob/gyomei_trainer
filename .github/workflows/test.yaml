@@ -21,7 +21,7 @@ jobs:
       - name: Generate pytest coverage report
         uses: MishaKav/pytest-coverage-comment@main
         with:
-          pytest-coverage-path: ./cov.txt
+          pytest-xml-coverage-path: ./coverage.xml
           junitxml-path: ./pytest.xml
           title: Pytest coverage report
           badge-title: Coverage
