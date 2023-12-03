@@ -2,7 +2,7 @@ import pytest
 import torch
 import torch.nn as nn
 
-from gyomei_trainer.modules.lr_scheduler import Scheduler
+from gyomei_trainer.modules import Scheduler
 
 
 class NeuralNetwork(nn.Module):

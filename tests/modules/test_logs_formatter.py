@@ -2,8 +2,8 @@ import pytest
 import logging
 from typing import Dict
 
-from gyomei_trainer.builder.state import State, AverageValueMeter
-from gyomei_trainer.modules.logs_formatter import LogsFormatter, make_epoch_log
+from gyomei_trainer.state import State, AverageValueMeter
+from gyomei_trainer.modules import LogsFormatter, make_epoch_log
 
 
 class TestFormatter:

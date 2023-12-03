@@ -1,6 +1,9 @@
 .git
 .idea
+.coverage
 .pytest_cache
 __pycache__/
+coverage.xml
 dist
 gyomei_trainer.egg-info
+pytest.xml

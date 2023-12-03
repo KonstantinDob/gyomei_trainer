@@ -2,8 +2,8 @@ import pytest
 import logging
 from typing import Optional
 
-from gyomei_trainer.builder.state import State
-from gyomei_trainer.modules.early_stopping import EarlyStopping
+from gyomei_trainer.state import State
+from gyomei_trainer.modules import EarlyStopping
 
 
 class TestStopping:

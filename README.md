@@ -8,7 +8,9 @@ Gyomei is a package for training pytorch-like neural networks.
 Requirements:
 * Python == 3.8
 * numpy==1.22.1
+* pre-commit==3.5.0
 * PyYAML==6.0
+* six==1.16.0
 * tensorboard==2.8.0
 * torch==1.10.2
 

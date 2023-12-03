@@ -2,7 +2,7 @@ import pytest
 import torch
 from typing import Any
 
-from gyomei_trainer.metrics.loss import Loss
+from gyomei_trainer.metrics import Loss
 
 
 class TestLoss:
@@ -22,5 +22,5 @@ class TestLoss:
             loss = Loss(raw_loss)
             loss.make_loss_value(loss_value)
             assert created
-        except AssertionError:
+        except TypeError:
             assert not created

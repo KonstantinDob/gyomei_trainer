@@ -6,8 +6,8 @@ from torch.utils.data import DataLoader, Dataset
 import segmentation_models_pytorch as smp
 from segmentation_models_pytorch import losses
 
-from gyomei_trainer.model.model import Model
-from gyomei_trainer.builder.builder import Builder
+from gyomei_trainer.model import Model
+from gyomei_trainer.builder import Builder
 
 
 class DummyDataset(Dataset):
