@@ -14,7 +14,7 @@ class Loss(_Loss):
         """Loss constructor.
 
         Args:
-            loss (Optional[torch.nn.Module]): Pytorch-like loss. Should
+            loss (torch.nn.Module, optional): Pytorch-like loss. Should
                 have _get_name() method.
 
         Raises:

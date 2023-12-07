@@ -26,8 +26,8 @@ class Model:
         Args:
             model (torch.nn.Module): Pytorch-like model. Should have
                 forward() and _get_name() methods.
-            optimizer (Optional[torch.optim.Optimizer]): Optimizer.
-            loss (Optional[torch.nn.Module]): Pytorch-like loss.
+            optimizer (torch.optim.Optimizer, optional): Optimizer.
+            loss (torch.nn.Module, optional): Pytorch-like loss.
             device (str): On that device model should be loaded.
 
         Raises:
@@ -89,7 +89,7 @@ class Model:
         return self._device
 
     @device.setter
-    def device(self, device_name: str):
+    def device(self, device_name: str) -> None:
         """Change device type.
 
         Args:
@@ -98,7 +98,7 @@ class Model:
         self._device = device_name
         self._to_device()
 
-    def epoch_complete(self, state: Any):
+    def epoch_complete(self, state: Any) -> None:
         """Save model after training and validation epoch.
 
         Args:
@@ -128,7 +128,7 @@ class Model:
                 f"Best model saved with " f"following metric: {form_data}"
             )
 
-    def _save_model(self, state: Any, mode: str):
+    def _save_model(self, state: Any, mode: str) -> None:
         """Save pytorch model.
 
         Args:
@@ -148,7 +148,7 @@ class Model:
         )
         state.logger.info("Model saving completed")
 
-    def load_model(self, file_path: str):
+    def load_model(self, file_path: str) -> None:
         """Load gyomei-like Model.
 
         Args:
@@ -169,7 +169,7 @@ class Model:
                 will run. Contain train data and target.
 
         Returns:
-            Dict[str, torch.Tensor]: Result of one training step.
+            dict of str: torch.Tensor: Result of one training step.
         """
         data, target = batch
 
@@ -190,7 +190,7 @@ class Model:
                 will run. Contain train data and target.
 
         Returns:
-            Dict[str, torch.Tensor]: Result of one validation step.
+            dict of str: torch.Tensor: Result of one validation step.
         """
         data, target = batch
 

@@ -41,6 +41,24 @@ Run in interactive mode:
 make run
 ```
 
+Stop container:
+
+```
+make stop
+```
+
+Check code style:
+
+```
+make style
+```
+
+Run test coverage:
+
+```
+make test-cov
+```
+
 ## Project structure
 
 Before starting training, an individual directory is created in which

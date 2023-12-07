@@ -16,7 +16,7 @@ jobs:
         run: make build
       - name: Run tests coverage
         run: make test-cov
-      - name: Stop oniwa container
+      - name: Stop container
         run: make stop
       - name: Generate pytest coverage report
         uses: MishaKav/pytest-coverage-comment@main

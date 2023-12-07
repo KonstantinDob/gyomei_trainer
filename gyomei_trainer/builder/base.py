@@ -37,24 +37,24 @@ class BaseBuilder:
 
         Args:
             model (Model): Gyomei-like model.
-            train_loader (Optional[DataLoader]): Train dataloader. In
+            train_loader (DataLoader, optional): Train dataloader. In
                 single validation run case may be set to None.
             valid_loader (DataLoader): Valid loader. Used for validation or
                 test or prediction. In prediction case loader should return
                 only data without target.
-            num_epoch (Optional[int]): How many epoch should train. In
+            num_epoch (int, optional): How many epoch should train. In
                 single validation run case may be set to None.
-            metrics (Dict[str, Any]): Metrics that should be calculated
+            metrics (dict of str: Any): Metrics that should be calculated
                 during run.
-            main_metrics (Optional[List[str]]): Model save best accuracy
+            main_metrics (list of str, optional): Model save best accuracy
                 by this metrics. In single validation run case may be
                 set to None.
             scheduler (lr_scheduler._LRScheduler): Learning rate scheduler.
                 To turf off set it to None.
-            early_stopping_patience (Optional[int]): Stop training after
+            early_stopping_patience (int, optional): Stop training after
                 not decreasing loss during patience epochs. To turf off
                 set it to None. Defaults to 5.
-            project_path (Optional[str]): Path to the project where the
+            project_path (str, optional): Path to the project where the
                 configs should be located. If the code is not run from the
                 root folder, then you need to specify the directory path.
                 To turn off saving models/configs set to None.

@@ -14,8 +14,7 @@ class Scheduler:
         step() method and by PyTorch-like.
 
         Args:
-            scheduler (lr_scheduler._LRScheduler): Input
-                scheduler. Should be PyTorch-like.
+            scheduler (lr_scheduler._LRScheduler): Input scheduler. Should be PyTorch-like.
 
         Raises:
             AttributeError: Scheduler class doesn't have a method.
