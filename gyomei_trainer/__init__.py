@@ -6,4 +6,4 @@ import gyomei_trainer.model
 import gyomei_trainer.modules
 import gyomei_trainer.state
 
-__version__ = "1.0.2"
+__version__ = "1.0.3"

@@ -39,8 +39,7 @@ def make_epoch_log(
 
     Args:
         seconds (float): Time spent on train and valid epoch.
-        metric_data (Dict[str, AverageValueMeter]): Dict with loss
-            and metrics.
+        metric_data (dict of str: AverageValueMeter): Dict with loss and metrics.
         epoch (int): Num of epoch.
 
     Returns:

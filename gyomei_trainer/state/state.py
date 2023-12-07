@@ -29,11 +29,11 @@ class State:
         self.loss_value_train: AverageValueMeter = AverageValueMeter()
         self.loss_value_valid: AverageValueMeter = AverageValueMeter()
 
-    def start_timer(self):
+    def start_timer(self) -> None:
         """Start timer."""
         self.timer = time()
 
-    def update(self, **kwargs):
+    def update(self, **kwargs) -> None:
         """Update parameters in State.
 
         May have few parameters. Should be careful when update dict
@@ -45,7 +45,7 @@ class State:
         for key, value in kwargs.items():
             setattr(self, key, value)
 
-    def epoch_complete(self):
+    def epoch_complete(self) -> None:
         """Reset all epoch values to initial."""
         for key, value in self.metrics_name.items():
             value.reset()

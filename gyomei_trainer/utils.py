@@ -45,7 +45,7 @@ def create_experiment_folder(project_path: Optional[str]) -> Optional[str]:
         project_path (str): Path to the project with configs.
 
     Returns:
-        Optional[str]: Path to the directory from ./bin/train.py.
+        str, optional: Path to the directory from ./bin/train.py.
     """
     if project_path is None:
         return None
